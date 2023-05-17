@@ -1,0 +1,39 @@
+#id ${app_user} &>> /tmp/roboshop.log
+#  #id gives 0 if user is there else it gives 1
+#if [ $? -ne 0 ]; then
+#useradd ${app_user} &>> /tmp/roboshop.log
+#fi
+#
+#rm -rf /app
+#mkdir /app
+#func_print_head "Downloading the ${component}  zip"
+#curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>> /tmp/roboshop.log
+#func_stat_check $?
+#cd /app
+#func_print_head "unzipping the ${component} files"
+#unzip /tmp/${component}.zip &>> /tmp/roboshop.log
+#func_stat_check $?
+
+# Add the app user if does nt exist
+- name: Add the app_user user 'roboshop'
+  ansible.builtin.user:
+    name: "{{ app_user }}"
+
+#Deletes the app directory
+- name: Recursively remove directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+#Craetes app directory
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+# Download app zip file and unarchive
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+    dest: /app
+    remote_src: yes
