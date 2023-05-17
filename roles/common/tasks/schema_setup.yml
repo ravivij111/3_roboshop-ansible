@@ -1,0 +1,26 @@
+#if [ "$schema_setup" ==  "mongo" ]; then
+#cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+#yum install mongodb-org-shell -y &>> $log_file
+#func_stat_check $?
+#mongo --host mongodb-dev.r1devopsb.online </app/schema/${component}.js
+#func_print_head "Connected to MongoDB Successfully"
+#elif [ "$schema_setup" ==  "mysql" ]; then
+#yum install mysql -y
+#mysql -h mysql-dev.r1devopsb.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql
+#  #RoboShop@1
+#func_print_head " Installed MySQL in ${component}  "
+#fi
+
+- name: Copy MongoDB repo file
+  ansible.builtin.copy:
+    # the source path fetches from the files directory
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install MongoDB client
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: installed
+
+- name: Load Schema
+  ansible.builtin.shell: mongo --host {{ lookup)'aws_ssm', 'dev.catalogue.mongo_endpoint', region='us-east-1 )}} </app/schema/${component}.js
