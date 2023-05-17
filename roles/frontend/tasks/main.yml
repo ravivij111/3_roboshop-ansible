@@ -28,12 +28,21 @@
   ansible.builtin.yum:
     name: nginx
     state: installed
-#Copy the roboshop.conf to another place
-- name: Copy file
-  ansible.builtin.copy:
+
+ #Copy the roboshop.conf to another place
+#- name: Copy file
+#  ansible.builtin.copy:
+#    # the source path fetches from the files directory
+#    src: roboshop.conf
+#    dest: /etc/nginx/default.d/roboshop.conf
+
+#Copy the template to another place
+- name: Copy template
+  ansible.builtin.template:
     # the source path fetches from the files directory
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+
 #Deletes the html directory
 - name: Recursively remove directory
   ansible.builtin.file:
