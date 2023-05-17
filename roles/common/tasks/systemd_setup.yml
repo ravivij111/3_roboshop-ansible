@@ -1,0 +1,19 @@
+#cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
+#systemctl daemon-reload
+#systemctl enable ${component}
+#systemctl restart ${component} &>> $log_file
+#systemctl status ${component}
+#func_print_head ${component}" service started"
+
+- name: Setup SystemD Service File
+  ansible.builtin.template:
+    # the source path fetches from the files directory
+    src: "{{ component }}.service"
+    dest: /etc/yum.repos.d/mongo.repo
+
+# Start the service, enabled: true is to start the service after re-boot
+- name: Start nginx service, if not started
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true

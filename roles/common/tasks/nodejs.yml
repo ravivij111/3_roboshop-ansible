@@ -21,7 +21,7 @@
     name: NodeJS
     state: installed
 
-- name: Install the NodeJS
+- name: Include the task list in play
   ansible.builtin.import_tasks:
     file: app_prereq.yml
 
@@ -30,3 +30,6 @@
   args:
     chdir: /app
 
+- name: Include the schema setup
+  ansible.builtin.import_tasks:
+    file: schema_setup.yml
