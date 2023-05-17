@@ -61,7 +61,7 @@
     remote_src: yes
 # Start the service, enabled: true is to start the service after re-boot
 - name: Start nginx service, if not started
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: nginx
     state: started
     enabled: true
