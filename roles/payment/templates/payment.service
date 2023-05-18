@@ -4,13 +4,13 @@ Description=Payment Service
 [Service]
 User=root
 WorkingDirectory=/app
-Environment=CART_HOST=cart-dev.r1devopsb.online
-Environment=CART_PORT=8080
-Environment=USER_HOST=user-dev.r1devopsb.online
-Environment=USER_PORT=8080
-Environment=AMQP_HOST=rabbitmq-dev.r1devopsb.online
-Environment=AMQP_USER=roboshop
-Environment=AMQP_PASS=rabbitmq_appuser_password
+Environment=CART_HOST={{ lookup('aws_ssm', 'dev.payment.cart_host', region='us-east-1 )}}
+Environment=CART_PORT={{ lookup('aws_ssm', 'dev.payment.cart_port', region='us-east-1 )}}
+Environment=USER_HOST={{ lookup('aws_ssm', 'dev.payment.user_host', region='us-east-1 )}}
+Environment=USER_PORT={{ lookup('aws_ssm', 'dev.payment.user_port', region='us-east-1 )}}
+Environment=AMQP_HOST={{ lookup('aws_ssm', 'dev.payment.rabbitmq_host', region='us-east-1 )}}
+Environment=AMQP_USER={{ lookup('aws_ssm', 'dev.payment.rabbitmq_user', region='us-east-1 )}}
+Environment=AMQP_PASS={{ lookup('aws_ssm', 'dev.payment.rabbitmq_pass', region='us-east-1 )}}
 
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 ExecStop=/bin/kill -9 $MAINPID
