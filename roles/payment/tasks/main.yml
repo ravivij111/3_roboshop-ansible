@@ -16,3 +16,7 @@
 #fi
 #func_python
 
+- name: Include the app pre req
+  ansible.builtin.import_tasks:
+    file: python.yml
+
