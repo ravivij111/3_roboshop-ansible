@@ -1,0 +1,34 @@
+#func_print_head " Installing Python "
+#yum install python36 gcc python3-devel -y &>> $log_file
+#func_stat_check $?
+#
+#func_app_prereq
+#
+#func_print_head " Installing Python Dependencies"
+#pip3.6 install -r requirements.txt &>> $log_file
+#func_stat_check $?
+#func_print_head " Update Password in System Service file Python Dependencies"
+#sed -i -e "s|rabbitmq_appuser_password|${rabbitmq_appuser_password}|" ${script_path}/${component}.service &>> $log_file
+#func_stat_check $?
+#func_systemd_setup
+
+- name: Install Pythom
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: Include the app pre req
+  ansible.builtin.import_tasks:
+    file: app_prereq.yml
+
+- name: Include the SystemD
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml
+
+- name: Download Python Dependencie
+  ansible.builtin.shell: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
