@@ -65,3 +65,8 @@
     name: nginx
     state: started
     enabled: true
+
+
+- name: FiImport Filebeat
+  ansible.builtin.tasks_from:
+    file: filebeat
