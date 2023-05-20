@@ -67,6 +67,12 @@
     enabled: true
 
 
-- name: FiImport Filebeat
-  ansible.builtin.tasks_from:
-    file: filebeat
+- name: FileImport Filebeat
+  ansible.builtin.import_role:
+    name: elk
+    tasks_from: filebeat
+
+- name: FiImport Prometheus
+  ansible.builtin.import_role:
+    name: prometheus
+    tasks_from: node_exporter
