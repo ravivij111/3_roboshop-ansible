@@ -1,6 +1,6 @@
 - name: Roboshop Project Setup
   hosts: all
-  become: yes
+  become: yes # This is to run wth super user
   #become: yes - This is to run the sudo user
   roles:
-    - "{{ role_name }}
+    - "{{ role_name }}"
