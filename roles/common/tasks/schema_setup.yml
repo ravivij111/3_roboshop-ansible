@@ -15,7 +15,7 @@
 ##RoboShop@1
 - name: Load MongoDB Schema
   when: schema_setup == "mongo"
-  ansible.builtin.block:
+  block:
     - name: Copy MongoDB repo file
       ansible.builtin.copy:
         # the source path fetches from the files directory
