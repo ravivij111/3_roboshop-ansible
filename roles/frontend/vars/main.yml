@@ -1,2 +1,2 @@
-filebeat.ymllog_file: /var/log/nginx/access.log
+log_file: /var/log/nginx/access.log
 component: frontend
