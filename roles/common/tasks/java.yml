@@ -6,7 +6,7 @@
 #mv target/${component}-1.0.jar ${component}.jar
 #func_systemd_setup
 
-- name: Install the NodeJS
+- name: Install the Maven
   ansible.builtin.yum:
     name: maven
     state: installed
@@ -15,7 +15,7 @@
   ansible.builtin.import_tasks:
     file: app_prereq.yml
 
-- name: Download Maven Dependenciew
+- name: Download Maven Dependencies
   ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar
   args:
     chdir: /app
