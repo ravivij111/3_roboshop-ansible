@@ -66,12 +66,11 @@
     state: started
     enabled: true
 
+- name: FileImport Filebeat
+  ansible.builtin.import_role:
+    name: elk
+    tasks_from: filebeat
 
-#- name: FileImport Filebeat
-#  ansible.builtin.import_role:
-#    name: elk
-#    tasks_from: filebeat
-#
 #- name: FiImport Prometheus
 #  ansible.builtin.import_role:
 #    name: prometheus
