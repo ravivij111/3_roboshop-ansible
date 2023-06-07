@@ -4,7 +4,7 @@
     dest: /opt/prometheus/prometheus.yml
 
 - name: Restart Prometheus
-  aansible.builtin.systemd:
+  ansible.builtin.systemd:
     name: prometheus
     state: restarted
 
